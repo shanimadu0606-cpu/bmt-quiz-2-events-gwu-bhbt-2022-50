@@ -1,176 +1,369 @@
-/* Basic Setup and Theming */
+/*
+ * Core Styling: CSS Variables and Resets (Level 3 & 4)
+ */
+
+/* Base Colors and Theming */
 :root {
-  --font-body: 'Inter', sans-serif;
-  --font-header: 'Orbitron', sans-serif;
+  /* Light Mode Defaults */
+  --color-background: #ffffff;
+  --color-text-primary: #1c1c1e;
+  --color-text-secondary: #636366;
+  --color-accent: #007aff; /* Apple Blue */
+  --color-card-background: #f8f8fa;
+  --color-card-shadow: rgba(0, 0, 0, 0.08);
+  --color-border: #e5e5e5;
+  --color-button-bg: #e0e0e6;
+  --color-button-text: var(--color-text-primary);
+  --color-hover-bg: #d0d0d8;
+
+  /* Type-specific colors (for flair) */
+  --type-keynote: #f59e0b; /* Amber */
+  --type-talk: #10b981; /* Emerald */
+  --type-workshop: #3b82f6; /* Blue */
+  --type-panel: #8b5cf6; /* Violet */
+  --type-social: #f43f5e; /* Rose */
 }
 
-:root[data-theme='light'] {
-  --background-color: #f0f2f5;
-  --text-color: #333;
-  --header-bg-color: rgba(255, 255, 255, 0.8);
-  --card-bg-color: #ffffff;
-  --button-bg-color: #007bff;
-  --button-text-color: #fff;
-  --accent-color: #0056b3;
-  --shadow-color: rgba(0, 0, 0, 0.1);
+/* Dark Mode Overrides (Controlled by JS/localStorage) */
+html[data-theme='dark'] {
+  --color-background: #1c1c1e;
+  --color-text-primary: #ffffff;
+  --color-text-secondary: #a9a9b0;
+  --color-accent: #4893ff; /* Lighter Blue */
+  --color-card-background: #2c2c2e;
+  --color-card-shadow: rgba(255, 255, 255, 0.05);
+  --color-border: #3a3a3c;
+  --color-button-bg: #3a3a3c;
+  --color-button-text: #ffffff;
+  --color-hover-bg: #4a4a4c;
 }
 
-:root[data-theme='dark'] {
-  --background-color: #121212;
-  --text-color: #e0e0e0;
-  --header-bg-color: rgba(24, 24, 24, 0.8);
-  --card-bg-color: #1e1e1e;
-  --button-bg-color: #008cff;
-  --button-text-color: #fff;
-  --accent-color: #3a9dff;
-  --shadow-color: rgba(0, 0, 0, 0.5);
-}
-
-body {
-  font-family: var(--font-body);
-  background-color: var(--background-color);
-  color: var(--text-color);
+/* Basic Reset */
+* {
+  box-sizing: border-box;
   margin: 0;
-  transition: background-color 0.3s, color 0.3s;
+  padding: 0;
+}
+
+/* Base Body and Typography (Level 1) */
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: var(--color-background);
+  color: var(--color-text-primary);
   line-height: 1.6;
+  transition: background-color 0.4s ease, color 0.4s ease; /* Smooth theme transition */
 }
 
-/* Background Animation */
-.background-animation {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: -1;
-  background: linear-gradient(45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
-  background-size: 400% 400%;
-  animation: gradientShift 15s ease infinite;
+h1, h2, h3, h4, h5 {
+  font-weight: 700;
+  line-height: 1.2;
 }
 
-@keyframes gradientShift {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+main {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
 }
 
-/* Header */
+/*
+* Header and Footer Styling
+*/
 header {
-  background-color: var(--header-bg-color);
-  backdrop-filter: blur(10px);
-  padding: 1rem 2rem;
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  box-shadow: 0 2px 10px var(--shadow-color);
+  background-color: var(--color-card-background);
+  border-bottom: 1px solid var(--color-border);
+  padding: 20px;
 }
 
 .header-content {
+  max-width: 1200px;
+  margin: 0 auto;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  max-width: 1200px;
-  margin: 0 auto;
 }
 
 header h1 {
-  font-family: var(--font-header);
-  font-size: 2.5rem;
-  color: var(--accent-color);
-  margin: 0;
-  text-shadow: 1px 1px 3px var(--shadow-color);
+  font-size: 1.8rem;
+  color: var(--color-accent);
+  font-weight: 900;
 }
 
-/* Theme Toggle Button */
+footer {
+  text-align: center;
+  padding: 20px;
+  margin-top: 40px;
+  border-top: 1px solid var(--color-border);
+  color: var(--color-text-secondary);
+  font-size: 0.9rem;
+}
+
+/*
+* Theme Toggle Button (Level 3)
+*/
 #theme-toggle {
-  background: none;
-  border: 1px solid var(--text-color);
-  border-radius: 20px;
+  background: var(--color-button-bg);
+  border: none;
+  padding: 8px 12px;
+  border-radius: 8px;
   cursor: pointer;
   font-size: 1.2rem;
-  padding: 0.5rem;
-  position: relative;
-  width: 60px;
-  height: 34px;
+  transition: background 0.3s;
 }
 
-.sun-icon, .moon-icon {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  transition: opacity 0.3s ease;
+#theme-toggle:hover {
+  background: var(--color-hover-bg);
 }
 
-.sun-icon { left: 8px; }
-.moon-icon { right: 8px; }
-
-[data-theme='light'] .moon-icon { opacity: 0; }
-[data-theme='dark'] .sun-icon { opacity: 0; }
-
-/* Main Content */
-main {
-  max-width: 1200px;
-  margin: 2rem auto;
-  padding: 0 2rem;
+.sun-icon,.moon-icon {
+  display: none;
 }
+html[data-theme='light'].sun-icon { display: inline-block; }
+html[data-theme='dark'].moon-icon { display: inline-block; }
 
-/* Controls Section */
+
+/*
+* Search and Filter Controls (Level 2 & 7)
+*/
 #controls-section {
-  background-color: var(--card-bg-color);
-  padding: 1rem;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px var(--shadow-color);
-  margin-bottom: 2rem;
+  padding: 20px 0;
 }
 
-.day-tabs, .filter-buttons {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  margin-bottom: 1rem;
-}
-
-button {
-  cursor: pointer;
-  border-radius: 6px;
-  padding: 0.5rem 1rem;
-  border: 1px solid transparent;
-  transition: background-color 0.3s, color 0.3s;
-}
-
-.day-tab, .filter-btn {
-  background-color: transparent;
-  color: var(--text-color);
-  border: 1px solid var(--accent-color);
-}
-
-.day-tab.active, .filter-btn.active {
-  background-color: var(--accent-color);
-  color: var(--button-text-color);
-}
-
-/* Search Bar */
 .search-and-filter-bar {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 15px;
+  margin-bottom: 30px;
 }
 
 #event-search {
   width: 100%;
-  padding: 0.75rem;
-  border-radius: 6px;
-  border: 1px solid var(--accent-color);
-  background-color: var(--background-color);
-  color: var(--text-color);
+  padding: 12px 15px;
   font-size: 1rem;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  background-color: var(--color-card-background);
+  color: var(--color-text-primary);
+  transition: border-color 0.3s;
 }
 
-/* Footer */
-footer {
+#event-search:focus {
+  outline: none;
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.2);
+}
+
+.filter-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.filter-btn {
+  padding: 8px 16px;
+  border: 1px solid var(--color-border);
+  border-radius: 20px;
+  background-color: var(--color-card-background);
+  color: var(--color-text-secondary);
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background-color 0.3s, border-color 0.3s, color 0.3s;
+}
+
+.filter-btn:hover:not(.active) {
+  background-color: var(--color-hover-bg);
+}
+
+.filter-btn.active {
+  background-color: var(--color-accent);
+  color: white;
+  border-color: var(--color-accent);
+  font-weight: 700;
+}
+
+.filter-btn:focus-visible, #theme-toggle:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+  border-radius: 5px;
+}
+
+/* No Results Message (Level 9) */
+#no-results {
   text-align: center;
-  padding: 2rem 0;
-  margin-top: 2rem;
-  color: var(--text-color);
+  font-size: 1.2rem;
+  padding: 50px 0;
+  color: var(--color-text-secondary);
+  font-style: italic;
+}
+.hidden {
+  display: none;
 }
 
+/*
+* Event Card Grid Layout (Core Requirement: Responsive)
+*/
+#event-container {
+  display: grid;
+  /* Mobile First: Single column by default */
+  grid-template-columns: 1fr;
+  gap: 30px; /* Consistent spacing [3] */
+}
+
+/* Tablet Layout (2 Columns) */
+@media (min-width: 768px) {
+  #event-container {
+      /* CSS Grid with fractional units for equal-width columns [3] */
+      grid-template-columns: 1fr 1fr;
+  }
+
+ .search-and-filter-bar {
+      flex-direction: row;
+      align-items: center;
+  }
+  #event-search {
+      flex-grow: 1;
+  }
+}
+
+/* Desktop Layout (3 Columns) */
+@media (min-width: 1024px) {
+  #event-container {
+      grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+
+
+/*
+* Event Card Component Styling (Level 1: Polished UI)
+*/
+.event-card {
+  background-color: var(--color-card-background);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 10px var(--color-card-shadow);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  
+  /* Level 1: Subtle GPU-accelerated transition for lift effect [10] */
+  transition: transform 0.4s cubic-bezier(0.215, 0.61, 0.355, 1), 
+              box-shadow 0.4s ease-out;
+}
+
+.event-card:hover {
+  /* Lift effect: moves up and increases shadow [10] */
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px var(--color-card-shadow);
+}
+
+.card-image-container {
+  height: 180px;
+  overflow: hidden;
+  position: relative;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.card-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.card-content {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.event-title {
+  font-size: 1.4rem;
+  margin-bottom: 10px;
+  color: var(--color-text-primary);
+}
+
+.event-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.event-date,.event-time {
+  font-weight: 400;
+  color: var(--color-text-secondary);
+  font-size: 0.9rem;
+}
+
+.event-type {
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: white;
+  /* Default to Keynote color, JS will override based on type */
+  background-color: var(--type-keynote); 
+}
+
+/* Assigning specific colors for event types */
+.type-keynote { background-color: var(--type-keynote); }
+.type-talk { background-color: var(--type-talk); }
+.type-workshop { background-color: var(--type-workshop); }
+.type-panel { background-color: var(--type-panel); }
+.type-social { background-color: var(--type-social); }
+
+
+.event-description {
+  color: var(--color-text-secondary);
+  margin-bottom: 20px;
+  flex-grow: 1; /* Pushes button to bottom */
+}
+
+/* Highlight for Search Results (Level 7) */
+.highlight {
+  background-color: rgba(255, 255, 0, 0.7); /* Standard yellow highlight */
+  color: var(--color-text-primary);
+  padding: 0 2px;
+  border-radius: 2px;
+}
+html[data-theme='dark'].highlight {
+  background-color: rgba(255, 255, 0, 0.3); /* Subtler dark mode highlight */
+}
+
+.card-actions {
+  margin-top: auto; /* Ensure buttons are at the bottom */
+  padding-top: 15px;
+  border-top: 1px solid var(--color-border);
+  display: flex;
+  gap: 10px;
+}
+
+.add-to-calendar-btn,.countdown-display {
+  padding: 10px 15px;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+  flex: 1;
+  text-align: center;
+}
+
+.add-to-calendar-btn {
+  background-color: var(--color-accent);
+  color: white;
+  border: none;
+  text-decoration: none;
+  transition: opacity 0.3s;
+}
+
+.add-to-calendar-btn:hover {
+  opacity: 0.8;
+}
+
+.countdown-display {
+  /* Style for Level 6 */
+  background-color: var(--color-button-bg);
+  color: var(--color-text-primary);
+  font-weight: 400;
+  border: 1px solid var(--color-border);
+  user-select: none;
+}

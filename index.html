@@ -5,16 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TechCon 2025 Event Showcase</title>
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&family=Orbitron:wght@700&display=swap">
-
-    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&display=swap">
+    
+    <link rel="stylesheet" href="styles.css">
 
     <script>
         // Check localStorage for user preference, fall back to system preference
         const storedTheme = localStorage.getItem('theme');
         const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        if (storedTheme === 'dark' || (!storedTheme && systemPrefersDark)) {
+        
+        if (storedTheme === 'dark' |
+
+| (!storedTheme && systemPrefersDark)) {
             document.documentElement.setAttribute('data-theme', 'dark');
         } else {
             document.documentElement.setAttribute('data-theme', 'light');
@@ -22,7 +24,6 @@
     </script>
 </head>
 <body>
-    <div class="background-animation"></div>
     <header>
         <div class="header-content">
             <h1>TechCon 2025: The Innovation Frontier</h1>
@@ -35,16 +36,9 @@
 
     <main>
         <section id="controls-section">
-            <div class="day-tabs">
-                <button class="day-tab active" data-day="all">All Days</button>
-                <button class="day-tab" data-day="20">Day 1 (Nov 20)</button>
-                <button class="day-tab" data-day="21">Day 2 (Nov 21)</button>
-                <button class="day-tab" data-day="22">Day 3 (Nov 22)</button>
-            </div>
-
             <div class="search-and-filter-bar">
                 <input type="text" id="event-search" placeholder="Search events by title or description..." aria-label="Search events">
-    
+
                 <div class="filter-buttons">
                     <button class="filter-btn active" data-filter="all" tabindex="0" role="button">All Events</button>
                     <button class="filter-btn" data-filter="Keynote" tabindex="0" role="button">Keynotes</button>
@@ -56,7 +50,7 @@
             </div>
         </section>
 
-        <section id="event-container" aria-live="polite">
+        <section id="event-container">
             </section>
         
         <p id="no-results" class="hidden" aria-live="polite" role="status">
@@ -66,9 +60,9 @@
     </main>
 
     <footer>
-        <p>&copy; 2025 TechCon. All rights reserved.</p>
+        <p>&copy; 2025 TechCon. All rights reserved. Developed by.</p>
     </footer>
 
-    <script src="script.js"></script>
+    <script src="scripts.js"></script>
 </body>
 </html>
