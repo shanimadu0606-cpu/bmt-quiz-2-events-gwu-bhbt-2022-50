@@ -13,10 +13,7 @@
         // Check localStorage for user preference, fall back to system preference
         const storedTheme = localStorage.getItem('theme');
         const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        
-        if (storedTheme === 'dark' |
-
-| (!storedTheme && systemPrefersDark)) {
+        if (storedTheme === 'dark' || (!storedTheme && systemPrefersDark)) {
             document.documentElement.setAttribute('data-theme', 'dark');
         } else {
             document.documentElement.setAttribute('data-theme', 'light');
@@ -24,6 +21,7 @@
     </script>
 </head>
 <body>
+    <div class="background-animation"></div>
     <header>
         <div class="header-content">
             <h1>TechCon 2025: The Innovation Frontier</h1>
@@ -36,9 +34,16 @@
 
     <main>
         <section id="controls-section">
+            <div class="day-tabs">
+                <button class="day-tab active" data-day="all">All Days</button>
+                <button class="day-tab" data-day="20">Day 1 (Nov 20)</button>
+                <button class="day-tab" data-day="21">Day 2 (Nov 21)</button>
+                <button class="day-tab" data-day="22">Day 3 (Nov 22)</button>
+            </div>
+
             <div class="search-and-filter-bar">
                 <input type="text" id="event-search" placeholder="Search events by title or description..." aria-label="Search events">
-
+    
                 <div class="filter-buttons">
                     <button class="filter-btn active" data-filter="all" tabindex="0" role="button">All Events</button>
                     <button class="filter-btn" data-filter="Keynote" tabindex="0" role="button">Keynotes</button>
@@ -50,7 +55,7 @@
             </div>
         </section>
 
-        <section id="event-container">
+        <section id="event-container" aria-live="polite">
             </section>
         
         <p id="no-results" class="hidden" aria-live="polite" role="status">
@@ -60,9 +65,9 @@
     </main>
 
     <footer>
-        <p>&copy; 2025 TechCon. All rights reserved. Developed by.</p>
+        <p>&copy; 2025 TechCon. All rights reserved.</p>
     </footer>
 
-    <script src="scripts.js"></script>
+    <script src="main.js"></script>
 </body>
 </html>
